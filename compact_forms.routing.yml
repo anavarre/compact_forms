@@ -1,7 +1,10 @@
-compacts_admin:
+compact_forms.admin_settings:
   path: /admin/config/user-interface/compact_forms
   defaults:
     _title: 'Compact Forms'
-    _content: drupal_get_form
+    _form: '\Drupal\compact_forms\Form\SettingsForm'
   requirements:
     _permission: 'administer Compact Forms'
+  options:
+    # Adding _admin_route per https://drupal.org/node/2224207
+    _admin_route: TRUE
