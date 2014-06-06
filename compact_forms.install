@@ -22,4 +22,3 @@ function compact_forms_uninstall() {
 function compact_forms_update_7000() {
   \Drupal::config('compact_forms.settings')->clear('compact_forms_colons')->save();
 }
-

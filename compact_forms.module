@@ -90,7 +90,21 @@ function compact_forms_pre_render($form) {
 
     // Load our page requisites and JavaScript settings.
     if (!isset($loaded)) {
-      _compact_forms_include_js($css_ids);
+      // Using #attached to add css, js, and js settings. Verified that this is
+      // being added to the page, however the jquery dependency is not being
+      // loaded. May need to look at *.libraries.yml and the issue at
+      // https://drupal.org/node/2201089
+      $form['#attached']['js'][] = drupal_get_path('module', 'compact_forms') . '/js/compact_forms.js';
+      $form['#attached']['css'][] = drupal_get_path('module', 'compact_forms') . '/css/compact_forms.css';
+      $form['#attached']['js'][] = array(
+        'type' => 'setting',
+        'data' => array(
+          'compactForms' => array(
+            'forms' => $css_ids,
+            'stars' => (int) \Drupal::config('compact_forms.settings')->get('compact_forms_stars'),
+          ),
+        ),
+      );
       $loaded = TRUE;
     }
     // Only alter the form if a custom field size is configured or form element
@@ -134,6 +148,7 @@ function _compact_forms_resize_fields(&$form, $field_size, $descriptions) {
         break;
     }
   }
+  return;
 }
 
 /**
@@ -142,20 +157,19 @@ function _compact_forms_resize_fields(&$form, $field_size, $descriptions) {
  * @param $css_ids
  *   An array containing CSS form ids.
  */
-function _compact_forms_include_js($css_ids) {
-  $path = drupal_get_path('module', 'compact_forms');
-  /** @fixme drupal_add_js() was removed. Use #attached in your render array: https://drupal.org/node/2169605 */
-  fixme_drupal_add_js($path . '/compact_forms.js');
-  /** @fixme drupal_add_css() was removed. Use #attached in your render array: https://drupal.org/node/2169605 */
-  fixme_drupal_add_css($path . '/compact_forms.css');
-
-  $settings = array(
-    'compactForms' => array(
-      'forms' => $css_ids,
-      'stars' => (int) \Drupal::config('compact_forms.settings')->get('compact_forms_stars'),
-    ),
-  );
-  /** @fixme drupal_add_js() was removed. Use #attached in your render array: https://drupal.org/node/2169605 */
-  fixme_drupal_add_js($settings, 'setting');
-}
-
+#function _compact_forms_include_js($css_ids) {
+#  $path = drupal_get_path('module', 'compact_forms');
+#  /** @fixme drupal_add_js() was removed. Use #attached in your render array: https://drupal.org/node/2169605 */
+#  fixme_drupal_add_js($path . '/compact_forms.js');
+#  /** @fixme drupal_add_css() was removed. Use #attached in your render array: https://drupal.org/node/2169605 */
+#  fixme_drupal_add_css($path . '/compact_forms.css');
+#
+#  $settings = array(
+#    'compactForms' => array(
+#      'forms' => $css_ids,
+#      'stars' => (int) \Drupal::config('compact_forms.settings')->get('compact_forms_stars'),
+#    ),
+#  );
+#  /** @fixme drupal_add_js() was removed. Use #attached in your render array: https://drupal.org/node/2169605 */
+#  fixme_drupal_add_js($settings, 'setting');
+#}
