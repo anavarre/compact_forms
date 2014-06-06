@@ -1,0 +1,7 @@
+compacts_admin:
+  path: /admin/config/user-interface/compact_forms
+  defaults:
+    _title: 'Compact Forms'
+    _content: drupal_get_form
+  requirements:
+    _permission: 'administer Compact Forms'
