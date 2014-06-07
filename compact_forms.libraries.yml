@@ -1,0 +1,10 @@
+compact_forms:
+  version: VERSION
+  js:
+    js/compact_forms.js: {}
+  css:
+    theme:
+      css/compact_forms.css : {}
+  dependencies:
+    - core/jquery
+    - core/drupal
