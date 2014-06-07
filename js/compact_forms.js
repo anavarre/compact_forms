@@ -1,4 +1,3 @@
-
 (function ($) {
 
 Drupal.compactForms = {};
@@ -85,7 +84,8 @@ Drupal.behaviors.compactForms = {
 
     // Safari adds passwords without triggering any event after page load.
     // We therefore need to wait a bit and then check for field values.
-    if ($.browser.safari) {
+    isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    if (isSafari) {
       setTimeout(Drupal.compactForms.fixSafari, 200);
     }
   }
