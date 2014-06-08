@@ -33,10 +33,15 @@ $.fn.compactForm = function (stars) {
       $field.addClass('compact-form-field');
 
       if (stars === 0) {
-        $label.find('.form-required').hide();
+        // Hide the :after pseudo-class.
+        $label.addClass('required-hidden');
       }
       else if (stars === 2) {
-        $label.find('.form-required').insertAfter($field).prepend('&nbsp;');
+        // Hide the :after pseudo-class.
+        $label.addClass('required-hidden');
+        // Input fields do not support :after so append a span to the input.
+        $field.after('<span class="form-required">&nbsp;</span>');
+
       }
 
       $field.focus(function () {
