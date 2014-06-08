@@ -41,7 +41,6 @@ $.fn.compactForm = function (stars) {
         $label.addClass('required-hidden');
         // Input fields do not support :after so append a span to the input.
         $field.after('<span class="form-required">&nbsp;</span>');
-
       }
 
       $field.focus(function () {
