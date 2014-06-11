@@ -30,21 +30,6 @@ function compact_forms_permission() {
 }
 
 /**
- * Implements hook_menu().
- */
-function compact_forms_menu() {
-  $items['admin/config/user-interface/compact_forms'] = array(
-    'title' => 'Compact Forms',
-    'description' => 'Configure Compact Forms settings.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('compact_forms_admin_form'),
-    'access arguments' => array('administer Compact Forms'),
-    'file' => 'compact_forms.admin.inc',
-  );
-  return $items;
-}
-
-/**
  * Implements hook_form_alter().
  */
 function compact_forms_form_alter(&$form, $form_state, $form_id) {
