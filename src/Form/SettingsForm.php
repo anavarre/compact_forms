@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: peterbull
- * Date: 6/6/14
- * Time: 7:09 AM
- */
 
 namespace Drupal\compact_forms\Form;
 
