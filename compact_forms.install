@@ -9,11 +9,12 @@
  * Implements hook_uninstall().
  */
 function compact_forms_uninstall() {
-  \Drupal::config('compact_forms.settings')->clear('compact_forms_colons')->save();
-  \Drupal::config('compact_forms.settings')->clear('compact_forms_descriptions')->save();
-  \Drupal::config('compact_forms.settings')->clear('compact_forms_field_size')->save();
-  \Drupal::config('compact_forms.settings')->clear('compact_forms_ids')->save();
-  \Drupal::config('compact_forms.settings')->clear('compact_forms_stars')->save();
+  \Drupal::config('compact_forms.settings')
+    ->clear('compact_forms_descriptions')
+    ->clear('compact_forms_field_size')
+    ->clear('compact_forms_ids')
+    ->clear('compact_forms_stars')
+    ->save();
 }
 
 /**

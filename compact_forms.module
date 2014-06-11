@@ -5,12 +5,14 @@
  * Compact Forms Drupal module.
  */
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Implements hook_help().
  */
-function compact_forms_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#compact_forms':
+function compact_forms_help($route_name, Request $request) {
+  switch ($route_name) {
+    case 'help.page.compact_forms':
       return '<p>' . t('Makes form fields compact by overlaying the field label on top the field itself using jQuery.') . '</p>';
   }
 }
@@ -25,21 +27,6 @@ function compact_forms_permission() {
       'description' => t('Configure forms to display compact and their behavior.'),
     ),
   );
-}
-
-/**
- * Implements hook_menu().
- */
-function compact_forms_menu() {
-  $items['admin/config/user-interface/compact_forms'] = array(
-    'title' => 'Compact Forms',
-    'description' => 'Configure Compact Forms settings.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('compact_forms_admin_form'),
-    'access arguments' => array('administer Compact Forms'),
-    'file' => 'compact_forms.admin.inc',
-  );
-  return $items;
 }
 
 /**

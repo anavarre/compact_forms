@@ -4,7 +4,7 @@ compact_forms:
     js/compact_forms.js: {}
   css:
     theme:
-      css/compact_forms.css : {}
+      css/compact_forms.theme.css : {}
   dependencies:
     - core/jquery
     - core/drupal
