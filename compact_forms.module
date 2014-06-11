@@ -5,12 +5,14 @@
  * Compact Forms Drupal module.
  */
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Implements hook_help().
  */
-function compact_forms_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#compact_forms':
+function compact_forms_help($route_name, Request $request) {
+  switch ($route_name) {
+    case 'help.page.compact_forms':
       return '<p>' . t('Makes form fields compact by overlaying the field label on top the field itself using jQuery.') . '</p>';
   }
 }
