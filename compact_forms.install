@@ -17,4 +17,4 @@ function compact_forms_uninstall() {
     ->save();
 }
 
-// @todo We need to handle removing the 'compact_forms_colons' value once Migrate API is fully working. 
+// @todo Per https://drupal.org/node/2186315 we need to handle removing the 'compact_forms_colons' value once Migrate API is fully working. 
