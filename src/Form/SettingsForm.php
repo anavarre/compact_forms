@@ -64,6 +64,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('compact_forms_stars', $form_state['values']['compact_forms_stars'])
       ->set('compact_forms_field_size', $form_state['values']['compact_forms_field_size'])
       ->save();
-    drupal_set_message($this->t('Configuration was successfully saved.'));
+
+    parent::submitForm($form, $form_state);
   }
 }

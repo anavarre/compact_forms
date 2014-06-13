@@ -6,5 +6,4 @@ compact_forms.admin_settings:
   requirements:
     _permission: 'administer Compact Forms'
   options:
-    # Adding _admin_route per https://drupal.org/node/2224207
     _admin_route: TRUE
