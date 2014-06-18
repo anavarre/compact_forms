@@ -46,9 +46,10 @@ class CompactFormsTestCase extends WebTestBase {
    * Test routes.
    *
    * Test the following:
-   * - We can successfully access the compact_settings admin form.
+   * - We can successfully access the compact_forms settings form.
+   * - An anonymous user cannot access the settings form.
    */
-  public function testCompactFormsMenu() {
+  public function testCompactFormsSettings() {
 
     // Verify if we can successfully access the compact_forms form.
     $permissions = array('administer Compact Forms');
