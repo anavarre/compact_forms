@@ -5,5 +5,3 @@ compact_forms.admin_settings:
     _form: '\Drupal\compact_forms\Form\SettingsForm'
   requirements:
     _permission: 'administer Compact Forms'
-  options:
-    _admin_route: TRUE
