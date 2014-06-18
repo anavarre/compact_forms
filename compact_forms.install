@@ -5,16 +5,4 @@
  * Installation functions for Compact Forms module.
  */
 
-/**
- * Implements hook_uninstall().
- */
-function compact_forms_uninstall() {
-  \Drupal::config('compact_forms.settings')
-    ->clear('compact_forms_descriptions')
-    ->clear('compact_forms_field_size')
-    ->clear('compact_forms_ids')
-    ->clear('compact_forms_stars')
-    ->save();
-}
-
 // @todo Per https://drupal.org/node/2186315 we need to handle removing the 'compact_forms_colons' value once Migrate API is fully working. 
