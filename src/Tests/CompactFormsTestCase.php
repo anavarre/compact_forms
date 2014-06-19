@@ -43,6 +43,15 @@ class CompactFormsTestCase extends WebTestBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+    $this->privileged_user = $this->drupalCreateUser(array('administer Compact Forms',));
+    $this->drupalLogin($this->privileged_user);
+  }
+
+  /**
    * Test routes.
    *
    * Test the following:
@@ -52,9 +61,6 @@ class CompactFormsTestCase extends WebTestBase {
   public function testCompactFormsSettings() {
 
     // Verify if we can successfully access the compact_forms form.
-    $permissions = array('administer Compact Forms');
-    $this->privilegedUser = $this->drupalCreateUser($permissions);
-    $this->drupalLogin($this->privilegedUser);
     $this->drupalGet('admin/config/user-interface/compact_forms');
     $this->assertResponse(200, 'The Compact Forms settings page is available.');
 
