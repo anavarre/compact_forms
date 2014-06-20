@@ -47,8 +47,8 @@ class CompactFormsTestCase extends WebTestBase {
    */
   public function setUp() {
     parent::setUp();
-    $this->privileged_user = $this->drupalCreateUser(array('administer Compact Forms',));
-    $this->drupalLogin($this->privileged_user);
+    $this->privilegedUser = $this->drupalCreateUser(array('administer Compact Forms',));
+    $this->drupalLogin($this->privilegedUser);
   }
 
   /**
