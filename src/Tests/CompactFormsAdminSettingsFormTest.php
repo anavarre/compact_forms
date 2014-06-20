@@ -36,8 +36,8 @@ class CompactFormsAdminSettingsFormTest extends WebTestBase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Compact Forms functionality',
-      'description' => 'Tests the Compact Forms module.',
+      'name' => 'Compact Forms settings form',
+      'description' => 'Tests the Compact Forms admin settings form.',
       'group' => 'Compact Forms',
     );
   }
@@ -66,10 +66,10 @@ class CompactFormsAdminSettingsFormTest extends WebTestBase {
     $this->assertTitle(t('Compact Forms | Drupal'), 'The title on the page is "Compact Forms".');
 
     // Verify each and every field.
-    // @todo Test the textarea.
-    $this->assertFieldChecked('edit-compact-forms-descriptions', "The \"Hide field descriptions\" checkbox is checked");
+    $this->assertFieldById('edit-compact-forms-ids', 'user-login-form', 'The "Form CSS IDs" field has the value "user-login-form".');
+    $this->assertFieldChecked('edit-compact-forms-descriptions', "The \"Hide field descriptions\" checkbox is checked.");
     $this->assertFieldByName('compact_forms_stars', 2, "The required field marker defaults to \"Append star after the form element\".");
-    // @todo Test empty form field.
+    $this->assertFieldById('edit-compact-forms-field-size', null, 'The "Enforced text field size" field is empty.');
     // @todo Test Saving the configuration settings.
 
     // Verify that there's no access bypass.
