@@ -68,8 +68,7 @@ class CompactFormsAdminSettingsFormTest extends WebTestBase {
     // Verify each and every field.
     // @todo Test the textarea.
     $this->assertFieldChecked('edit-compact-forms-descriptions', "The \"Hide field descriptions\" checkbox is checked");
-    // @todo Debug assertOptionSelected.
-    $this->assertOptionSelected('edit-compact-forms-stars', 2,"The required field marker defaults to \"Append star after the form element\".");
+    $this->assertFieldByName('compact_forms_stars', 2, "The required field marker defaults to \"Append star after the form element\".");
     // @todo Test empty form field.
     // @todo Test Saving the configuration settings.
 
