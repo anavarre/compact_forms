@@ -14,7 +14,7 @@ use Drupal\simpletest\WebTestBase;
  *
  * @ingroup compact_forms
  */
-class CompactFormsTestCase extends WebTestBase {
+class CompactFormsAdminSettingsFormTest extends WebTestBase {
   protected $privilegedUser;
 
   /**
