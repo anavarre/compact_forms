@@ -52,7 +52,7 @@ class CompactFormsTestCase extends WebTestBase {
   }
 
   /**
-   * Test routes.
+   * Test the compact_forms settings form.
    *
    * Test the following:
    * - We can successfully access the compact_forms settings form.
@@ -63,6 +63,12 @@ class CompactFormsTestCase extends WebTestBase {
     // Verify if we can successfully access the compact_forms form.
     $this->drupalGet('admin/config/user-interface/compact_forms');
     $this->assertResponse(200, 'The Compact Forms settings page is available.');
+    $this->assertTitle(t('Compact Forms | Drupal'), 'The title on the page is "Compact Forms".');
+
+    // Verify each and every field.
+    $this->assertFieldChecked('edit-compact-forms-descriptions', "The \"Hide field descriptions\" checkbox is checked");
+    // @todo This test isn't working yet.
+    $this->assertOptionSelected('edit-compact-forms-stars', 2,"The required field marker defaults to \"Append star after the form element\".");
 
     // Verify that there's no access bypass.
     $this->drupalLogout();
