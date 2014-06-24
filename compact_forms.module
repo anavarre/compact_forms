@@ -6,6 +6,7 @@
  */
 
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_help().
@@ -111,7 +112,7 @@ function _compact_forms_resize_fields(&$form, $field_size, $descriptions) {
   if (empty($form) || !is_array($form)) {
     return;
   }
-  foreach (element_children($form) as $key) {
+  foreach (Element::children($form) as $key) {
     if (!isset($form[$key]['#type'])) {
       continue;
     }
