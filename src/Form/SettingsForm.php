@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Builds the Compact Forms settings form.
+ */
+
 namespace Drupal\compact_forms\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -59,6 +64,8 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, array &$form_state) {
     $this->config('compact_forms.settings')
+      // @todo Remove the 'compact_forms_colons' value. See https://drupal.org/node/2186315
+      // TBD in compact_forms.install until Migrate API is fully functional.
       ->set('compact_forms_ids', $form_state['values']['compact_forms_ids'])
       ->set('compact_forms_descriptions', $form_state['values']['compact_forms_descriptions'])
       ->set('compact_forms_stars', $form_state['values']['compact_forms_stars'])
