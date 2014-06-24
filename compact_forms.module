@@ -5,12 +5,13 @@
  * Compact Forms Drupal module.
  */
 
+use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_help().
  */
-function compact_forms_help($route_name) {
+function compact_forms_help($route_name, Request $request) {
   switch ($route_name) {
     case 'help.page.compact_forms':
       return '<p>' . t('Makes form fields compact by overlaying the field label on top the field itself using jQuery.') . '</p>';
@@ -32,7 +33,7 @@ function compact_forms_permission() {
 /**
  * Implements hook_form_alter().
  */
-function compact_forms_form_alter(&$form) {
+function compact_forms_form_alter(&$form, $form_state, $form_id) {
   $form['#pre_render'][] = 'compact_forms_pre_render';
 }
 
