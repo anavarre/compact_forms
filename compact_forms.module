@@ -37,7 +37,7 @@ function compact_forms_form_alter(&$form) {
 }
 
 /**
- * #pre_render callback for all forms.
+ * The #pre_render callback for all forms.
  *
  * @todo Replace with #attached and move back into hook_form_alter().
  */
