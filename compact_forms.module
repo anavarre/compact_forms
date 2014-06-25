@@ -6,6 +6,7 @@
  */
 
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_help().
@@ -37,7 +38,7 @@ function compact_forms_form_alter(&$form, $form_state, $form_id) {
 }
 
 /**
- * #pre_render callback for all forms.
+ * The #pre_render callback for all forms.
  *
  * @todo Replace with #attached and move back into hook_form_alter().
  */
@@ -111,7 +112,7 @@ function _compact_forms_resize_fields(&$form, $field_size, $descriptions) {
   if (empty($form) || !is_array($form)) {
     return;
   }
-  foreach (element_children($form) as $key) {
+  foreach (Element::children($form) as $key) {
     if (!isset($form[$key]['#type'])) {
       continue;
     }
@@ -133,5 +134,4 @@ function _compact_forms_resize_fields(&$form, $field_size, $descriptions) {
         break;
     }
   }
-  return;
 }
