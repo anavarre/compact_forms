@@ -15,6 +15,11 @@ use Drupal\simpletest\WebTestBase;
  * @ingroup compact_forms
  */
 class CompactFormsAdminSettingsFormTest extends WebTestBase {
+  /**
+   * User account with compact_forms permissions.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
   protected $privilegedUser;
 
   /**
@@ -47,16 +52,13 @@ class CompactFormsAdminSettingsFormTest extends WebTestBase {
    */
   public function setUp() {
     parent::setUp();
-    $this->privilegedUser = $this->drupalCreateUser(array('administer Compact Forms',));
+    // Privileged user should only have the compact_forms permissions
+    $this->privilegedUser = $this->drupalCreateUser(array('administer Compact Forms'));
     $this->drupalLogin($this->privilegedUser);
   }
 
   /**
    * Test the compact_forms settings form.
-   *
-   * Test the following:
-   * - We can successfully access the compact_forms settings form.
-   * - An anonymous user cannot access the settings form.
    */
   public function testCompactFormsSettings() {
     // Verify if we can successfully access the compact_forms form.
@@ -77,7 +79,7 @@ class CompactFormsAdminSettingsFormTest extends WebTestBase {
     $this->assertNoFieldChecked('edit-compact-forms-stars-1');
     $this->assertFieldChecked('edit-compact-forms-stars-2');
 
-    // @todo Determine a proper test for empty sting in edit-compact-forms-field-size textarea.
+    // @todo Determine a proper test for empty string in edit-compact-forms-field-size textarea.
     $this->pass('Field edit-compact-forms-field-size always passes with empty string.', 'Debug');
     $this->assertFieldById('edit-compact-forms-field-size', '', 'The edit-compact-forms-field-size field is empty.');
 
