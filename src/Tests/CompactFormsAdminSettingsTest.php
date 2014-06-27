@@ -66,11 +66,6 @@ class CompactFormsAdminSettingsTest extends WebTestBase {
    * Test menu link and permissions.
    */
   public function testAdminPages() {
-    // Verify the module's permissions section exists.
-    // @todo Hash issue, see https://www.drupal.org/node/81447
-    // See also http://drupal.stackexchange.com/questions/51655/prevent-drupal-from-rewriting-as-23-in-urls
-    //$this->drupalGet('admin/people/permissions#module-compact_forms');
-    //$this->assertResponse(200, 'The Compact Forms permissions section is available.');
 
     // Verify admin link.
     $this->drupalGet('admin/config/user-interface');
@@ -90,9 +85,6 @@ class CompactFormsAdminSettingsTest extends WebTestBase {
 
     // Verify that there's no access bypass.
     $this->drupalLogout();
-    // @todo Hash issue, see https://www.drupal.org/node/81447
-    //$this->drupalGet('admin/people/permissions#module-compact_forms');
-    //$this->assertResponse(403, 'Access denied for non-admin user.');
     $this->drupalGet('admin/config/user-interface');
     $this->assertResponse(403, 'Access denied for non-admin user.');
   }
