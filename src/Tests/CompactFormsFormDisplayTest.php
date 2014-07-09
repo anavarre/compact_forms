@@ -46,39 +46,44 @@ class CompactFormsFormDisplayTest extends WebTestBase {
    * Test application of Compact Forms settings to default user login form.
    */
   public function testCompactFormsDefaultUserLoginForm() {
+    $form_id = 'user-login-form';
+
     // Load user (login) page.
     $this->drupalGet('user');
-    $this->assertResponse(200, 'The Request New Password page is available.');
+    $this->assertResponse(200, 'The User Login page is available.');
 
     // Assert that CSS and JavaScript files are present.
-    $path_css = drupal_get_path('module', "compact_forms") . "/css/compact_forms.theme.css";
-    $xpath_query = $this->buildXPathQuery("/html/head/link[contains(@href, :path)]", array(":path" => $path_css));
+    $path_css = drupal_get_path('module', 'compact_forms') . '/css/compact_forms.theme.css';
+    $xpath_query = $this->buildXPathQuery('/html/head/link[contains(@href, :path)]', array(':path' => $path_css));
     $xpath = $this->xpath($xpath_query);
-    $this->assertEqual(count($xpath), 1, "The markup contains the CSS file {$xpath_query}");
+    $this->assertEqual(count($xpath), 1,
+      format_string('The markup contains the CSS file %val', array('%val' => $path_css)));
 
-    $path_js = drupal_get_path('module', "compact_forms") . "/js/compact_forms.js";
-    $xpath_query = $this->buildXPathQuery("/html/head/script[contains(@src, :path)]", array(":path" => $path_js));
+    $path_js = drupal_get_path('module', 'compact_forms') . '/js/compact_forms.js';
+    $xpath_query = $this->buildXPathQuery('/html/head/script[contains(@src, :path)]', array(':path' => $path_js));
     $xpath = $this->xpath($xpath_query);
-    $this->assertEqual(count($xpath), 1, "The markup contains the JavaScript file {$xpath_query}");
+    $this->assertEqual(count($xpath), 1,
+      format_string('The markup contains the JavaScript file %val', array('%val' => $path_js)));
 
     // Assert compact_forms JavaScript settings.
     $settings = $this->drupalGetSettings();
-    $this->assertTrue(isset($settings['compactForms']), "JavaScript settings for compact_forms are defined.");
-    //$this->assertTrue((is_array($settings['compactForms']['forms']) && (count($settings['compactForms']['forms']) == 1)),
-    $this->assertTrue((is_array($settings['compactForms']['forms']) && (in_array("user-login-form", $settings['compactForms']['forms']))),
-      "JavaScript settings for compact_forms defines the form IDs.");
+    $this->assertTrue(isset($settings['compactForms']), 'JavaScript settings for compact_forms are defined.');
+    $this->assertTrue((is_array($settings['compactForms']['forms']) && (in_array($form_id, $settings['compactForms']['forms']))),
+      format_string('JavaScript settings for compact_forms defines the form ID %val.', array('%val' => $form_id)));
     $this->assertTrue(is_int($settings['compactForms']['stars']),
-      "JavaScript settings for compact_forms defines the stars format.");
+      'JavaScript settings for compact_forms defines the stars format.');
   }
 
   /**
    * Test application of Compact Forms settings to user password reset form.
    */
   public function testCompactFormsAddPasswordResetForm() {
+    $form_id = 'user-pass';
+
     // Configure compact_forms module to be applied to password reminder form.
     $config = \Drupal::config('compact_forms.settings');
-    $config->set("compact_forms_ids", "user-pass");
-    $config->set("compact_forms_field_size", 25);
+    $config->set('compact_forms_ids', $form_id);
+    $config->set('compact_forms_field_size', 25);
     $config->save();
 
     // Load user/password page.
@@ -86,33 +91,36 @@ class CompactFormsFormDisplayTest extends WebTestBase {
     $this->assertResponse(200, 'The Request New Password page is available.');
 
     // Assert that CSS and JavaScript files are present.
-    $path_css = drupal_get_path('module', "compact_forms") . "/css/compact_forms.theme.css";
-    $xpath_query = $this->buildXPathQuery("/html/head/link[contains(@href, :path)]", array(":path" => $path_css));
+    $path_css = drupal_get_path('module', 'compact_forms') . '/css/compact_forms.theme.css';
+    $xpath_query = $this->buildXPathQuery('/html/head/link[contains(@href, :path)]', array(':path' => $path_css));
     $xpath = $this->xpath($xpath_query);
-    $this->assertEqual(count($xpath), 1, "The markup contains the CSS file {$xpath_query}");
+    $this->assertEqual(count($xpath), 1,
+      format_string('The markup contains the CSS file %val', array('%val' => $path_css)));
 
-    $path_js = drupal_get_path('module', "compact_forms") . "/js/compact_forms.js";
-    $xpath_query = $this->buildXPathQuery("/html/head/script[contains(@src, :path)]", array(":path" => $path_js));
+    $path_js = drupal_get_path('module', 'compact_forms') . '/js/compact_forms.js';
+    $xpath_query = $this->buildXPathQuery('/html/head/script[contains(@src, :path)]', array(':path' => $path_js));
     $xpath = $this->xpath($xpath_query);
-    $this->assertEqual(count($xpath), 1, "The markup contains the JavaScript file {$xpath_query}");
+    $this->assertEqual(count($xpath), 1,
+      format_string('The markup contains the JavaScript file %val', array('%val' => $path_js)));
 
     // Assert compact_forms JavaScript settings.
     $settings = $this->drupalGetSettings();
     $this->assertTrue(isset($settings['compactForms']),
-      "JavaScript settings for compact_forms are defined.");
-    $this->assertTrue((is_array($settings['compactForms']['forms']) && (in_array("user-pass", $settings['compactForms']['forms']))),
-      "JavaScript settings for compact_forms defines the form IDs.");
+      'JavaScript settings for compact_forms are defined.');
+    $this->assertTrue((is_array($settings['compactForms']['forms']) && (in_array($form_id, $settings['compactForms']['forms']))),
+      format_string('JavaScript settings for compact_forms defines the form ID %val.', array('%val' => $form_id)));
     $this->assertTrue(is_int($settings['compactForms']['stars']),
-      "JavaScript settings for compact_forms defines the stars format.");
+      'JavaScript settings for compact_forms defines the stars format.');
 
     // Assert that form is present and size attribute has been modified.
     $xpath = $this->xpath("//form[@id='user-pass']");
-    $this->assertEqual(count($xpath), 1, "The user-pass form exists on the page.");
+    $this->assertEqual(count($xpath), 1, format_string('The %val form exists on the page.', array('%val' => $form_id)));
 
     $xpath = $this->xpath("//form[@id='user-pass']//input[@id='edit-name']");
-    $this->assertEqual(count($xpath), 1, "The username field is present in the user-pass form.");
+    $this->assertEqual(count($xpath), 1,
+      format_string('The username field is present in the %val form.', array('%val' => $form_id)));
 
     $xpath = $this->xpath("//form[@id='user-pass']//input[@id='edit-name' and @size='25']");
-    $this->assertEqual(count($xpath), 1, "The username field size attribute has a value of 25.");
+    $this->assertEqual(count($xpath), 1, 'The username field size attribute has a value of 25.');
   }
-} 
+}
