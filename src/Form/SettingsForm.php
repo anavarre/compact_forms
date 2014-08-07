@@ -8,6 +8,7 @@
 namespace Drupal\compact_forms\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormStateInterface;
 
 class SettingsForm extends ConfigFormBase {
 
@@ -21,7 +22,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $compact_forms_config = $this->config('compact_forms.settings');
 
     $form['compact_forms_ids'] = array(
@@ -62,9 +63,10 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('compact_forms.settings')
-      // @todo Remove the 'compact_forms_colons' value. See https://drupal.org/node/2186315
+      // @todo Remove the 'compact_forms_colons' value.
+      // See https://drupal.org/node/2186315
       // TBD in compact_forms.install until Migrate API is fully functional.
       ->set('compact_forms_ids', $form_state['values']['compact_forms_ids'])
       ->set('compact_forms_descriptions', $form_state['values']['compact_forms_descriptions'])
@@ -72,6 +74,6 @@ class SettingsForm extends ConfigFormBase {
       ->set('compact_forms_field_size', $form_state['values']['compact_forms_field_size'])
       ->save();
 
-    parent::submitForm($form, $form_state);
+    return parent::submitForm($form, $form_state);
   }
 }
