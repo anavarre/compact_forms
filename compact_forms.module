@@ -19,18 +19,6 @@ function compact_forms_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_permission().
- */
-function compact_forms_permission() {
-  return array(
-    'administer Compact Forms' => array(
-      'title' => t('Administer Compact Forms'),
-      'description' => t('Configure forms to display compact and their behavior.'),
-    ),
-  );
-}
-
-/**
  * Implements hook_form_alter().
  */
 function compact_forms_form_alter(&$form, $form_state, $form_id) {
