@@ -68,10 +68,10 @@ class SettingsForm extends ConfigFormBase {
       // @todo Remove the 'compact_forms_colons' value.
       // See https://drupal.org/node/2186315
       // TBD in compact_forms.install until Migrate API is fully functional.
-      ->set('compact_forms_ids', $form_state['values']['compact_forms_ids'])
-      ->set('compact_forms_descriptions', $form_state['values']['compact_forms_descriptions'])
-      ->set('compact_forms_stars', $form_state['values']['compact_forms_stars'])
-      ->set('compact_forms_field_size', $form_state['values']['compact_forms_field_size'])
+      ->set('compact_forms_ids', $form_state->getValue('compact_forms_ids'))
+      ->set('compact_forms_descriptions', $form_state->getValue('compact_forms_descriptions'))
+      ->set('compact_forms_stars', $form_state->getValue('compact_forms_stars'))
+      ->set('compact_forms_field_size', $form_state->getValue('compact_forms_field_size'))
       ->save();
 
     return parent::submitForm($form, $form_state);
