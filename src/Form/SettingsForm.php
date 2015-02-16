@@ -83,6 +83,6 @@ class SettingsForm extends ConfigFormBase {
       ->set('compact_forms_field_size', $form_state->getValue('compact_forms_field_size'))
       ->save();
 
-    return parent::submitForm($form, $form_state);
+    parent::submitForm($form, $form_state);
   }
 }
