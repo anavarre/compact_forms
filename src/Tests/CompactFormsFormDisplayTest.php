@@ -102,7 +102,7 @@ class CompactFormsFormDisplayTest extends WebTestBase {
       format_string('The markup contains the JavaScript file %val', array('%val' => $path_js)));
 
     // Assert compact_forms JavaScript settings.
-    $settings = $this->drupalGetSettings();
+    $settings = $this->getDrupalSettings();
     $this->assertTrue(isset($settings['compactForms']), 'JavaScript settings for compact_forms are defined.');
     $this->assertTrue((is_array($settings['compactForms']['forms']) && (in_array($form_id, $settings['compactForms']['forms']))),
       format_string('JavaScript settings for compact_forms defines the form ID %val.', array('%val' => $form_id)));
