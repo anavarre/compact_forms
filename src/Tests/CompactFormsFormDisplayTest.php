@@ -5,9 +5,9 @@ namespace Drupal\compact_forms\Tests;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests for the compact_forms module.
+ * Tests the Compact Forms functionality on user-facing forms.
  *
- * @ingroup compact_forms
+ * @group compact_forms
  */
 class CompactFormsFormDisplayTest extends WebTestBase {
   /**
@@ -23,17 +23,6 @@ class CompactFormsFormDisplayTest extends WebTestBase {
    * @var string
    */
   protected $profile = 'minimal';
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-      return array(
-          'name' => 'Compact Forms form display',
-          'description' => 'Tests the Compact Forms functionality on user-facing forms.',
-          'group' => 'Compact Forms',
-      );
-  }
 
   /**
    * {@inheritdoc}

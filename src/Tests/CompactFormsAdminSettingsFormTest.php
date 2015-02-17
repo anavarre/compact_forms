@@ -10,9 +10,9 @@ namespace Drupal\compact_forms\Tests;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests for the compact_forms module.
+ * Tests the Compact Forms admin settings form.
  *
- * @ingroup compact_forms
+ * @group compact_forms
  */
 class CompactFormsAdminSettingsFormTest extends WebTestBase {
   /**
@@ -35,17 +35,6 @@ class CompactFormsAdminSettingsFormTest extends WebTestBase {
    * @var string
    */
   protected $profile = 'minimal';
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Compact Forms settings form',
-      'description' => 'Tests the Compact Forms admin settings form.',
-      'group' => 'Compact Forms',
-    );
-  }
 
   /**
    * {@inheritdoc}
