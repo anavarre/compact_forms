@@ -52,10 +52,10 @@ class CompactFormsFormDisplayTest extends WebTestBase {
     $form_id = 'user-pass';
 
     // Configure compact_forms module to be applied to password reminder form.
-    $config = \Drupal::config('compact_forms.settings');
-    $config->set('compact_forms_ids', $form_id);
-    $config->set('compact_forms_field_size', 25);
-    $config->save();
+    \Drupal::configFactory()->getEditable('compact_forms.settings')
+      ->set('compact_forms_ids', $form_id)
+      ->set('compact_forms_field_size', 25)
+      ->save();
 
     // Load user/password page.
     $this->drupalGet('user/password');
@@ -85,7 +85,7 @@ class CompactFormsFormDisplayTest extends WebTestBase {
       format_string('The markup contains the CSS file %val', array('%val' => $path_css)));
 
     $path_js = drupal_get_path('module', 'compact_forms') . '/js/compact_forms.js';
-    $xpath_query = $this->buildXPathQuery('/html/head/script[contains(@src, :path)]', array(':path' => $path_js));
+    $xpath_query = $this->buildXPathQuery('/html/body/script[contains(@src, :path)]', array(':path' => $path_js));
     $xpath = $this->xpath($xpath_query);
     $this->assertEqual(count($xpath), 1,
       format_string('The markup contains the JavaScript file %val', array('%val' => $path_js)));
