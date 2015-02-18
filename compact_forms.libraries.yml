@@ -8,3 +8,4 @@ compact_forms:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/drupalSettings
