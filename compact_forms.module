@@ -71,15 +71,10 @@ function compact_forms_pre_render($form) {
       // are defined in compact_forms.libraries.yml as introduced by
       // https://drupal.org/node/2201089
       $form['#attached']['library'][] = 'compact_forms/compact_forms';
-      $form['#attached']['js'][] = array(
-        'type' => 'setting',
-        'data' => array(
-          'compactForms' => array(
-            'forms' => $css_ids,
-            'stars' => (int) \Drupal::config('compact_forms.settings')->get('compact_forms_stars'),
-          ),
-        ),
-      );
+      $form['#attached']['drupalSettings']['compactForms'] = [
+        'forms' => $css_ids,
+        'stars' => (int) \Drupal::config('compact_forms.settings')->get('compact_forms_stars'),
+      ];
       $loaded = TRUE;
     }
     // Only alter the form if a custom field size is configured or form element

@@ -1,0 +1,18 @@
+# Schema for the configuration files of the compact_forms module.
+
+compact_forms.settings:
+  type: mapping
+  label: 'Compact forms settings'
+  mapping:
+    compact_forms_ids:
+      type: text
+      label: 'Form CSS IDs'
+    compact_forms_descriptions:
+      type: boolean
+      label: 'Hide field descriptions'
+    compact_forms_stars:
+      type: integer
+      label: 'Required field marker'
+    compact_forms_field_size:
+      type: integer
+      label: 'Enforced text field size'
