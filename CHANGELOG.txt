@@ -1,7 +1,7 @@
 
-Compact Forms 7.x-1.x, xxxx-xx-xx
+Compact Forms 8.x-1.x, 2015-xx-xx
 ---------------------------------
-
+by pbull, anavarre: Ported to Drupal 8
 
 Compact Forms 7.x-1.0, 2010-01-09
 ---------------------------------
