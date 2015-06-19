@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Builds the Compact Forms settings form.
+ * Contains \Drupal\compact_forms\Form\SettingsForm.
  */
 
 namespace Drupal\compact_forms\Form;
@@ -10,6 +10,9 @@ namespace Drupal\compact_forms\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Builds the Compact Forms settings form.
+ */
 class SettingsForm extends ConfigFormBase {
 
   /**
@@ -85,4 +88,5 @@ class SettingsForm extends ConfigFormBase {
 
     parent::submitForm($form, $form_state);
   }
+
 }

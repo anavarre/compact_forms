@@ -1,5 +1,5 @@
 compact_forms.admin_settings:
-  path: /admin/config/user-interface/compact_forms
+  path: '/admin/config/user-interface/compact_forms'
   defaults:
     _title: 'Compact Forms'
     _form: '\Drupal\compact_forms\Form\SettingsForm'
