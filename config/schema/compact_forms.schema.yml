@@ -14,5 +14,5 @@ compact_forms.settings:
       type: integer
       label: 'Required field marker'
     compact_forms_field_size:
-      type: string
+      type: integer
       label: 'Enforced text field size'
