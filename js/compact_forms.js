@@ -1,113 +1,120 @@
+/**
+ * @file
+ * Defines the behavior of the Compact Forms module.
+ */
+
 (function ($) {
 
-Drupal.compactForms = {};
+  'use strict';
 
-/**
- * Compact Forms jQuery plugin.
- */
-$.fn.compactForm = function (stars) {
-  stars = stars || 0;
+  Drupal.compactForms = {};
 
-  this.each(function () {
-    $(this).addClass('compact-form').find('label').each(function () {
-      var context = this.form;
-      var $label = $(this);
-      if (!$label.attr('for')) {
-        return;
-      }
-      var $field = $('#' + $label.attr('for'), context);
-      if (!$field.length || !$field.is('input:text,input:password,textarea,input[type=email]')) {
-        return;
-      }
-      // Store the initial field value, in case the browser is going to
-      // automatically fill it in upon focus.
-      var initial_value = $field.val();
+  /**
+   * Compact Forms jQuery plugin.
+   */
+  $.fn.compactForm = function (stars) {
+    stars = stars || 0;
 
-      if (initial_value != '') {
-        // Firefox doesn't like .hide() here for some reason.
-        $label.css('display', 'none');
-      }
-
-      $label.parent().addClass('compact-form-wrapper');
-      $label.addClass('compact-form-label');
-      $field.addClass('compact-form-field');
-
-      if (stars === 0) {
-        // Hide the :after pseudo-class.
-        $label.addClass('required-hidden');
-      }
-      else if (stars === 2) {
-        // Hide the :after pseudo-class.
-        $label.addClass('required-hidden');
-        // Input fields do not support :after so append a span to the input.
-        $field.after('<span class="form-required">&nbsp;</span>');
-      }
-
-      $field.focus(function () {
-        // Some browsers (e.g., Firefox) are automatically inserting a stored
-        // username and password into login forms. In case the password field is
-        // manually emptied afterwards, and the user jumps back to the username
-        // field (without changing it), and forth to the password field, then
-        // the browser automatically re-inserts the password again. Therefore,
-        // we also need to test against the initial field value.
-        if ($field.val() === initial_value || $field.val() === '') {
-          $label.fadeOut('fast');
+    this.each(function () {
+      $(this).addClass('compact-form').find('label').each(function () {
+        var context = this.form;
+        var $label = $(this);
+        if (!$label.attr('for')) {
+          return;
         }
-      });
-
-      $field.blur(function () {
-        if ($field.val() === '') {
-          $label.fadeIn('slow');
+        var $field = $('#' + $label.attr('for'), context);
+        if (!$field.length || !$field.is('input:text,input:password,textarea,input[type=email]')) {
+          return;
         }
-      });
+        // Store the initial field value, in case the browser is going to
+        // automatically fill it in upon focus.
+        var initial_value = $field.val();
 
-      // Chrome adds passwords after page load, so we need to track changes.
-      $field.change(function () {
-        if ($field.get(0) != document.activeElement) {
+        if (initial_value != '') {
+          // Firefox doesn't like .hide() here for some reason.
+          $label.css('display', 'none');
+        }
+
+        $label.parent().addClass('compact-form-wrapper');
+        $label.addClass('compact-form-label');
+        $field.addClass('compact-form-field');
+
+        if (stars === 0) {
+          // Hide the :after pseudo-class.
+          $label.addClass('required-hidden');
+        }
+        else if (stars === 2) {
+          // Hide the :after pseudo-class.
+          $label.addClass('required-hidden');
+          // Input fields do not support :after so append a span to the input.
+          $field.after('<span class="form-required">&nbsp;</span>');
+        }
+
+        $field.focus(function () {
+          // Some browsers (e.g., Firefox) are automatically inserting a stored
+          // username and password into login forms. In case the password field is
+          // manually emptied afterwards, and the user jumps back to the username
+          // field (without changing it), and forth to the password field, then
+          // the browser automatically re-inserts the password again. Therefore,
+          // we also need to test against the initial field value.
+          if ($field.val() === initial_value || $field.val() === '') {
+            $label.fadeOut('fast');
+          }
+        });
+
+        $field.blur(function () {
           if ($field.val() === '') {
-            $label.fadeIn('fast');
+            $label.fadeIn('slow');
           }
-          else {
-            $label.css('display', 'none');
+        });
+
+        // Chrome adds passwords after page load, so we need to track changes.
+        $field.change(function () {
+          if ($field.get(0) != document.activeElement) {
+            if ($field.val() === '') {
+              $label.fadeIn('fast');
+            }
+            else {
+              $label.css('display', 'none');
+            }
           }
-        }
+        });
       });
     });
-  });
-};
+  };
 
-/**
- * Attach compact forms behavior to all enabled forms upon page load.
- */
-Drupal.behaviors.compactForms = {
-  attach: function (context, settings) {
-    if (!settings || !settings.compactForms) {
-      return;
-    }
-    $('#' + settings.compactForms.forms.join(',#'), context).compactForm(settings.compactForms.stars);
+  /**
+   * Attach compact forms behavior to all enabled forms upon page load.
+   */
+  Drupal.behaviors.compactForms = {
+    attach: function (context, settings) {
+      if (!settings || !settings.compactForms) {
+        return;
+      }
+      $('#' + settings.compactForms.forms.join(',#'), context).compactForm(settings.compactForms.stars);
 
-    // Safari adds passwords without triggering any event after page load.
-    // We therefore need to wait a bit and then check for field values.
-    isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
-    if (isSafari) {
-      setTimeout(Drupal.compactForms.fixSafari, 200);
+      // Safari adds passwords without triggering any event after page load.
+      // We therefore need to wait a bit and then check for field values.
+      var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+      if (isSafari) {
+        setTimeout(Drupal.compactForms.fixSafari, 200);
+      }
     }
+  };
+
+  /**
+   * Checks for field values and hides the corresponding label if non-empty.
+   *
+   * @todo Convert $.fn.compactForm to always use a function like this.
+   */
+  Drupal.compactForms.fixSafari = function () {
+    $('label.compact-form-label').each(function () {
+      var $label = $(this);
+      var context = this.form;
+      if ($('#' + $label.attr('for'), context).val() != '') {
+        $label.css('display', 'none');
+      }
+    });
   }
-};
-
-/**
- * Checks for field values and hides the corresponding label if non-empty.
- *
- * @todo Convert $.fn.compactForm to always use a function like this.
- */
-Drupal.compactForms.fixSafari = function () {
-  $('label.compact-form-label').each(function () {
-    var $label = $(this);
-    var context = this.form;
-    if ($('#' + $label.attr('for'), context).val() != '') {
-      $label.css('display', 'none');
-    }
-  });
-}
 
 })(jQuery);

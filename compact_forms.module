@@ -28,28 +28,28 @@ function compact_forms_form_alter(&$form, FormStateInterface $form_state, $form_
 
 /**
  * The #pre_render callback for all forms.
- *
- * @todo Replace with #attached and move back into hook_form_alter().
  */
 function compact_forms_pre_render($form) {
   static $css_ids, $form_ids, $loaded, $field_size, $descriptions;
 
+  $config = \Drupal::config('compact_forms.settings');
+
   // Prepare CSS form ids.
   if (!isset($css_ids)) {
-    $css_ids = explode("\n", \Drupal::config('compact_forms.settings')->get('compact_forms_ids'));
+    $css_ids = explode("\n", $config->get('compact_forms_ids'));
     $css_ids = array_filter(array_map('trim', $css_ids));
   }
   // Prepare Form API form ids.
   if (!isset($form_ids) && !empty($css_ids)) {
-    $form_ids = array();
+    $form_ids = [];
     foreach ($css_ids as $id) {
-      $form_ids[] = strtr($id, array('-' => '_'));
+      $form_ids[] = strtr($id, ['-' => '_']);
     }
   }
   // Prepare form alteration settings.
   if (!isset($field_size)) {
-    $field_size = \Drupal::config('compact_forms.settings')->get('compact_forms_field_size');
-    $descriptions = \Drupal::config('compact_forms.settings')->get('compact_forms_descriptions');
+    $field_size = $config->get('compact_forms_field_size');
+    $descriptions = $config->get('compact_forms_descriptions');
   }
 
   if (in_array($form['form_id']['#value'], $form_ids) || (isset($form['#id']) && in_array($form['#id'], $css_ids))) {
@@ -73,7 +73,7 @@ function compact_forms_pre_render($form) {
       $form['#attached']['library'][] = 'compact_forms/compact_forms';
       $form['#attached']['drupalSettings']['compactForms'] = [
         'forms' => $css_ids,
-        'stars' => (int) \Drupal::config('compact_forms.settings')->get('compact_forms_stars'),
+        'stars' => (int) $config->get('compact_forms_stars'),
       ];
       $loaded = TRUE;
     }

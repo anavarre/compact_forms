@@ -1,7 +1,5 @@
-# Schema for the configuration files of the compact_forms module.
-
 compact_forms.settings:
-  type: mapping
+  type: config_object
   label: 'Compact forms settings'
   mapping:
     compact_forms_ids:
