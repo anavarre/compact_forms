@@ -2,5 +2,5 @@ type: module
 name: 'Compact Forms'
 description: 'Overlays form fields with their respective labels using JavaScript.'
 package: 'User interface'
-core: 8.x
+core_version_requirement: ^8 || ^9
 configure: compact_forms.admin_settings
